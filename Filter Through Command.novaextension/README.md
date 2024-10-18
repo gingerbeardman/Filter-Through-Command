@@ -4,7 +4,7 @@ The results can replace it, insert after it, or create a new document.
 
 Commands can be specified and a library of commented examples are included.
 
-![](https://nova.app/images/en/dark/editor.png)
+![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-command.png)
 
 
 ## Usage
@@ -13,6 +13,7 @@ To run Filter Through Command:
 
 - Select the **Editor → Filter Through Command** menu item; or
 - Open the command palette and type `Filter Through Command`
+
 
 ### Configuration
 
