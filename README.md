@@ -8,6 +8,8 @@ See the internal [README](/Filter%20Through%20Command.novaextension/README.md) f
 
 Recommended download from [Nova Extensions](https://extensions.panic.com/extensions/com.gingerbeardman/com.gingerbeardman.FilterThroughCommand/) website.
 
+![](nova-filter-through-custom-command.png)
+
 ![](nova-filter-through-command.png)
 
 # Licence
