@@ -21,7 +21,7 @@ function filterThroughCommand(editor) {
     const commands = nova.config.get(`${EXTENSION_IDENTIFIER}.commandList`) || ["sort -n"];
     
     let options = {
-        placeholder: "Enter command or choose"
+        placeholder: "Type to filter commands"
     };
     
     nova.workspace.showChoicePalette(commands, options, (command) => {

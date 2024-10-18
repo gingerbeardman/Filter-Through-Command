@@ -14,8 +14,8 @@ To run Filter Through Command:
 
 You might also choose to set a keyboard shortcut using **Nova → Settings... → Key Bindings**, such as:
 
-- `Cmd`+`Control`+`|` to invoke `Filter Through Command...`
 - `Cmd`+`|` to invoke `Filter Through Custom Command...`
+- `Cmd`+`Control`+`|` to invoke `Filter Through Command...`
 
 
 ### Configuration
@@ -34,6 +34,10 @@ Output Mode:
 - Insert After
 - New Document
 
+Custom Command:
+
+- Your most recent custom command
+
 Command List:
 
 - add or remove new commands
@@ -44,6 +48,10 @@ Command List:
 
 ## Screenshots
 
+**Type your own command**
+
 ![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-custom-command.png)
+
+**Pick from a library of commands**
 
 ![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-command.png)
