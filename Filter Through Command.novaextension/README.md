@@ -2,7 +2,7 @@
 
 The results can replace it, insert after it, or create a new document.
 
-Commands can be specified and a library of commented examples are included.
+Commands can be user-specified and a small library of commented examples are included.
 
 ![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-command.png)
 
