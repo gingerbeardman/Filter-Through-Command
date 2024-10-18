@@ -26,7 +26,7 @@
             {
                 "title": "Filter Through Command...",
                 "command": "com.gingerbeardman.FilterThroughCommand",
-                "shortcut": "cmd-control-|",
+                "shortcut": "cmd-control-|"
             },
             {
                 "title": "Reset Command List to Defaults",
