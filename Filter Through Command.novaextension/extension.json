@@ -21,7 +21,7 @@
             {
                 "title": "Filter Through Command...",
                 "command": "com.gingerbeardman.FilterThroughCommand",
-                "keymap": "cmd-shift-\\"
+                "keymap": "cmd-|"
             }
         ]
     },
