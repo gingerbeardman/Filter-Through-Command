@@ -20,16 +20,19 @@ To run Filter Through Command:
 To configure global preferences, open **Extensions → Extension Library...** then select Filter Through Command's **Settings** tab.
 
 Shell:
+
 - /bin/zsh
 - /bin/bash
 - /bin/sh
 
 Output Mode:
+
 - Replace
 - Insert After
 - New Document
 
 Command List:
+
 - add or remove new commands
 - can be followed by a # comment
 
