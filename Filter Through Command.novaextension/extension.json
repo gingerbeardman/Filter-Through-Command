@@ -7,7 +7,7 @@
     "name": "Filter Through Command",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Filter-Through-Command",
-    "version": "1.0.0",
+    "version": "1.1.0",
 
     "categories": ["commands"],
     "main": "main.js",
@@ -21,7 +21,16 @@
             {
                 "title": "Filter Through Command...",
                 "command": "com.gingerbeardman.FilterThroughCommand",
-                "keymap": "cmd-|"
+                "shortcut": "cmd-control-|",
+            },
+            {
+                "title": "Filter Through Custom Command...",
+                "command": "com.gingerbeardman.FilterThroughCommandCustom",
+                "shortcut": "cmd-|"
+            },
+            {
+                "title": "Reset Command List to Defaults",
+                "command": "com.gingerbeardman.FilterThroughCommand.resetCommands"
             }
         ]
     },

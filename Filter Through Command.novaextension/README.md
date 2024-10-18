@@ -14,6 +14,11 @@ To run Filter Through Command:
 - Select the **Editor → Filter Through Command** menu item; or
 - Open the command palette and type `Filter Through Command`
 
+You might also choose to set a keyboard shortcut using **Nova → Settings... → Key Bindings**, such as:
+
+- `Cmd`+`Control`+`|` to invoke `Filter Through Command...`
+- `Cmd`+`|` to invoke `Filter Through Custom Command...`
+
 
 ### Configuration
 
