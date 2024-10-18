@@ -1,0 +1,33 @@
+{
+  "version" : 1,
+  "id" : "24670896-9CE6-40DD-86CB-111B3E0DEB8D",
+  "symbolColor" : {
+    "green" : 0.9999999403953552,
+    "blue" : 0.9999999403953552,
+    "red" : 0.9999999403953552,
+    "alpha" : 1
+  },
+  "symbol" : {
+    "name" : "gearshape.fill",
+    "family" : "sf-symbols"
+  },
+  "bottomColor" : {
+    "red" : 0,
+    "blue" : 0.5628422499,
+    "alpha" : 1,
+    "green" : 0.468049893183012
+  },
+  "iconScale" : 0.6779560368342596,
+  "iconOffset" : [
+    0,
+    0
+  ],
+  "shadowHeight" : 0.3,
+  "shadowOpacity" : 0,
+  "topColor" : {
+    "green" : 0.8265323007121212,
+    "blue" : 0,
+    "alpha" : 1,
+    "red" : 0.6477330535730453
+  }
+}

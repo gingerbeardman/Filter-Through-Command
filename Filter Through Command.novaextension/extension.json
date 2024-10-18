@@ -1,0 +1,74 @@
+{
+    "bugs": "https://github.com/gingerbeardman/Filter-Through-Command/issues",
+    "description": "Run terminal commands on selected text",
+    "funding": "https://ko-fi.com/gingerbeardman",
+    "homepage": "https://www.gingerbeardman.com",
+    "identifier": "com.gingerbeardman.FilterThroughCommand",
+    "name": "Filter Through Command",
+    "organization": "gingerbeardman",
+    "repository": "https://github.com/gingerbeardman/Filter-Through-Command",
+    "version": "1.0.0",
+
+    "categories": ["commands"],
+    "main": "main.js",
+
+    "entitlements": {
+        "process": true
+    },
+
+    "commands": {
+        "editor": [
+            {
+                "title": "Filter Through Command...",
+                "command": "com.gingerbeardman.FilterThroughCommand",
+                "keymap": "cmd-shift-\\"
+            }
+        ]
+    },
+
+    "config": [
+        {
+            "key": "com.gingerbeardman.FilterThroughCommand.shell",
+            "title": "Shell",
+            "type": "enum",
+            "radio": false,
+            "values": [ "/bin/zsh", "/bin/bash", "/bin/sh" ],
+            "default": "/bin/zsh"
+        },
+        {
+            "key": "com.gingerbeardman.FilterThroughCommand.outputMode",
+            "title": "Output Mode",
+            "type": "enum",
+            "values": [
+                ["replace", "Replace"],
+                ["insert", "Insert After"],
+                ["new", "New Document"]
+            ],
+            "default": "replace"
+        },
+        {
+            "key": "com.gingerbeardman.FilterThroughCommand.commandList",
+            "title": "Command List",
+            "description": "A list of useful shell commands, followed by a # comment to remind you what they do.",
+            "type": "stringArray",
+            "default": [
+                "awk '{s+=$1} END {print s}'  #calc sum",
+                "base64  #encode",
+                "base64 -d  #decode",
+                "grep -Eo '(http|https)://[^[:space:]]+'  #extract URLs",
+                "nl -ba  #add line numbers",
+                "openssl rand -base64 12  #random passwd",
+                "sed '/^$/d'  #remove blank lines",
+                "sed '/^$/d' | wc -l  #count loc",
+                "sed 's/<[^>]*>//g'  #remove HTML tags",
+                "sort  #sort",
+                "sort -n  #sort numerically",
+                "sort | uniq  #remove duplicates",
+                "tac  #reverse",
+                "tr '[:lower:]' '[:upper:]'  #lower to upper",
+                "tr '[:upper:]' '[:lower:]'  #upper to lower",
+                "wc -l  #count lines"
+            ]
+        }
+    ]
+}
