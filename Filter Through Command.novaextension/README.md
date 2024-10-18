@@ -4,8 +4,6 @@ The results can replace it, insert after it, or create a new document.
 
 Commands can be user-specified and a small library of commented examples are included.
 
-![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-command.png)
-
 
 ## Usage
 
@@ -42,3 +40,10 @@ Command List:
 - can be followed by a # comment
 
 > Note: to reset the Command List to Defaults, delete the edited list from `~/Library/Application Support/Nova/UserConfiguration.json`
+
+
+## Screenshots
+
+![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-custom-command.png)
+
+![](https://raw.githubusercontent.com/gingerbeardman/Filter-Through-Command/refs/heads/main/nova-filter-through-command.png)

@@ -31,11 +31,16 @@ function filterThroughCommand(editor) {
 }
 
 function filterThroughCommandCustom(editor) {
-    nova.workspace.showInputPalette("Enter custom command:", {
-        placeholder: "e.g., sort -n"
+    const command = nova.config.get(`${EXTENSION_IDENTIFIER}.commandCustom`) || ["sort -n"];
+    
+    nova.workspace.showInputPalette("Enter custom command", {
+        placeholder: "e.g., sort -n",
+        value: command
     }, (command) => {
         if (command === null || command === undefined) return; // User cancelled
-        executeCommand(editor, command.trim());
+        const commandTrimmed = command.trim();
+        nova.config.set(`${EXTENSION_IDENTIFIER}.commandCustom`, commandTrimmed);
+        executeCommand(editor, commandTrimmed);
     });
 }
 
