@@ -16,6 +16,7 @@ You might also choose to set a keyboard shortcut using **Nova â†’ Settings... â†
 
 - `Cmd`+`|` to invoke `Filter Through Custom Command...`
 - `Cmd`+`Control`+`|` to invoke `Filter Through Command...`
+- `Cmd`+`Shift`+`|` to invoke `Rerun Last Custom Command...`
 
 
 ### Configuration
@@ -33,6 +34,11 @@ Output Mode:
 - Replace
 - Insert After
 - New Document
+
+Operate on All Text if none selected:
+
+- yes (default)
+- no
 
 Custom Command:
 

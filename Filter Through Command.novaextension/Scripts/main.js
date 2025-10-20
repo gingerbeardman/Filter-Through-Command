@@ -4,6 +4,7 @@ exports.activate = function() {
     nova.commands.register("com.gingerbeardman.FilterThroughCommand.resetCommands", resetCommands);
     nova.commands.register("com.gingerbeardman.FilterThroughCommand", filterThroughCommand);
     nova.commands.register("com.gingerbeardman.FilterThroughCommandCustom", filterThroughCommandCustom);
+    nova.commands.register("com.gingerbeardman.FilterThroughCommandRerun", filterThroughCommandRerun);
 }
 
 function resetCommands() {
@@ -44,15 +45,36 @@ function filterThroughCommandCustom(editor) {
     });
 }
 
+function filterThroughCommandRerun(editor) {
+    const command = nova.config.get(`${EXTENSION_IDENTIFIER}.commandCustom`);
+    
+    if (!command) {
+        nova.workspace.showErrorMessage("No custom command has been run yet. Use 'Filter Through Custom Command...' first.");
+        return;
+    }
+    
+    executeCommand(editor, command);
+}
+
 function executeCommand(editor, command) {
     const shell = nova.config.get(`${EXTENSION_IDENTIFIER}.shell`);
     const outputMode = nova.config.get(`${EXTENSION_IDENTIFIER}.outputMode`);
+    const selectAllIfNoneSelected = nova.config.get(`${EXTENSION_IDENTIFIER}.selectAllIfNoneSelected`) !== false; // Default to true
     
     let selectedRanges = editor.selectedRanges;
+    let autoSelectedAll = false; // Track if we auto-selected all text
     
     if (selectedRanges.length === 0 || (selectedRanges.length === 1 && selectedRanges[0].empty)) {
-        nova.workspace.showErrorMessage("No text selected");
-        return;
+        if (selectAllIfNoneSelected) {
+            // Select all text in the document
+            const documentRange = new Range(0, editor.document.length);
+            editor.selectedRanges = [documentRange];
+            selectedRanges = editor.selectedRanges;
+            autoSelectedAll = true;
+        } else {
+            nova.workspace.showErrorMessage("No text selected");
+            return;
+        }
     }
     
     selectedRanges.forEach((range) => {
@@ -84,6 +106,11 @@ function executeCommand(editor, command) {
                                 content: stdout.trim()
                             });
                             break;
+                    }
+                }).then(() => {
+                    // If we auto-selected all text, deselect after successful edit
+                    if (autoSelectedAll) {
+                        editor.selectedRanges = [];
                     }
                 });
             } else {

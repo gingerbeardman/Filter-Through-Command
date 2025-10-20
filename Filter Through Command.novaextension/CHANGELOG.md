@@ -1,6 +1,12 @@
+## Version 1.2.0
+
+Add: if no text is selected filter operates on all text
+Add: setting to turn off the above behaviour
+Add: command to rerun most recently used custom filter (Cmd+Shift+|)
+
 ## Version 1.1.1
 
-Chane: labelling
+Change: labelling
 Fix: documentation changes
 
 ## Version 1.1.0

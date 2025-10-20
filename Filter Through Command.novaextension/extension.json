@@ -7,7 +7,7 @@
     "name": "Filter Through Command",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Filter-Through-Command",
-    "version": "1.1.1",
+    "version": "1.2.0",
 
     "categories": ["commands"],
     "main": "main.js",
@@ -22,6 +22,11 @@
                 "title": "Filter Through Custom Command...",
                 "command": "com.gingerbeardman.FilterThroughCommandCustom",
                 "shortcut": "cmd-|"
+            },
+            {
+                "title": "Rerun Last Custom Command",
+                "command": "com.gingerbeardman.FilterThroughCommandRerun",
+                "shortcut": "cmd-shift-|"
             },
             {
                 "title": "Filter Through Command...",
@@ -54,6 +59,13 @@
                 ["new", "New Document"]
             ],
             "default": "replace"
+        },
+        {
+            "key": "com.gingerbeardman.FilterThroughCommand.selectAllIfNoneSelected",
+            "title": "Operate on All Text if none is selected",
+            "description": "When running a command and no text is selected, automatically select all text and deselect it afterwards",
+            "type": "boolean",
+            "default": true
         },
         {
             "key": "com.gingerbeardman.FilterThroughCommand.commandCustom",
