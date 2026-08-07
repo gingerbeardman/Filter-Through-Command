@@ -1,5 +1,8 @@
 # Filter Through Command
 
+> Since Nova 14 "Filter Through Command" is now a built-in, standard feature—I've been Sherlocked.  
+> I plan to keep this extension available for existing users, like myself.
+
 Filter Through Command is an extension for the [Nova editor](https://nova.app).
 
 Run terminal commands on the selected text and have the output replace it, insert after it, or create a new document. The command line is your oyster!
