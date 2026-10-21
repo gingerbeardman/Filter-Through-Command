@@ -1,11 +1,14 @@
 const EXTENSION_IDENTIFIER = "com.gingerbeardman.FilterThroughCommand"
 
 exports.activate = function() {
-    nova.commands.register("com.gingerbeardman.FilterThroughCommand.resetCommands", resetCommands);
-    nova.commands.register("com.gingerbeardman.FilterThroughCommand", filterThroughCommand);
-    nova.commands.register("com.gingerbeardman.FilterThroughCommandCustom", filterThroughCommandCustom);
-    nova.commands.register("com.gingerbeardman.FilterThroughCommandRerun", filterThroughCommandRerun);
+    nova.subscriptions.add(nova.commands.register("com.gingerbeardman.FilterThroughCommand.resetCommands", resetCommands));
+    nova.subscriptions.add(nova.commands.register("com.gingerbeardman.FilterThroughCommand", filterThroughCommand));
+    nova.subscriptions.add(nova.commands.register("com.gingerbeardman.FilterThroughCommandCustom", filterThroughCommandCustom));
+    nova.subscriptions.add(nova.commands.register("com.gingerbeardman.FilterThroughCommandRerun", filterThroughCommandRerun));
 }
+
+const COMMAND_TIMEOUT_MS = 30 * 1000; // Kill commands that run longer than this
+const MAX_OUTPUT_LENGTH = 10 * 1024 * 1024; // Kill commands that output more than this
 
 function resetCommands() {
     try {
@@ -77,9 +80,55 @@ function executeCommand(editor, command) {
         }
     }
     
-    selectedRanges.forEach((range) => {
-        let selectedText = editor.getTextInRange(range);
+    // Run the command once per range, then apply all results in a single edit
+    const runs = selectedRanges.map((range) => runCommand(shell, command, editor.getTextInRange(range)));
+    
+    Promise.all(runs).then((results) => {
+        const succeeded = [];
+        results.forEach((result, index) => {
+            if (result.error) {
+                nova.workspace.showErrorMessage(`Command failed: ${result.error}`);
+            } else {
+                succeeded.push({ range: selectedRanges[index], output: result.stdout.trim() });
+            }
+        });
         
+        if (succeeded.length === 0) return;
+        
+        if (outputMode === "new") {
+            succeeded.forEach((item) => {
+                nova.workspace.openNewTextDocument({
+                    content: item.output
+                });
+            });
+            return;
+        }
+        
+        // Apply in reverse document order so earlier ranges are not shifted by later edits
+        const ordered = succeeded.slice().sort((a, b) => b.range.start - a.range.start);
+        
+        editor.edit((edit) => {
+            ordered.forEach((item) => {
+                switch (outputMode) {
+                    case "replace":
+                        edit.replace(item.range, item.output);
+                        break;
+                    case "insert":
+                        edit.insert(item.range.end, "\n" + item.output);
+                        break;
+                }
+            });
+        }).then(() => {
+            // If we auto-selected all text, deselect after successful edit
+            if (autoSelectedAll) {
+                editor.selectedRanges = [];
+            }
+        });
+    });
+}
+
+function runCommand(shell, command, input) {
+    return new Promise((resolve) => {
         let process = new Process(shell, {
             args: ["-c", command],
             stdio: ["pipe", "pipe", "pipe"]
@@ -87,42 +136,48 @@ function executeCommand(editor, command) {
         
         let stdout = "";
         let stderr = "";
+        let failure = null;
         
-        process.onStdout((line) => stdout += line);
-        process.onStderr((line) => stderr += line);
+        const timeout = setTimeout(() => {
+            failure = `timed out after ${COMMAND_TIMEOUT_MS / 1000} seconds`;
+            process.kill();
+        }, COMMAND_TIMEOUT_MS);
+        
+        process.onStdout((line) => {
+            if (failure) return;
+            stdout += line;
+            if (stdout.length > MAX_OUTPUT_LENGTH) {
+                failure = `output exceeded ${MAX_OUTPUT_LENGTH / (1024 * 1024)} MB`;
+                stdout = "";
+                process.kill();
+            }
+        });
+        process.onStderr((line) => {
+            if (stderr.length < MAX_OUTPUT_LENGTH) stderr += line;
+        });
         
         process.onDidExit((status) => {
-            if (status === 0) {
-                editor.edit((edit) => {
-                    switch (outputMode) {
-                        case "replace":
-                            edit.replace(range, stdout.trim());
-                            break;
-                        case "insert":
-                            edit.insert(range.end, "\n" + stdout.trim());
-                            break;
-                        case "new":
-                            nova.workspace.openNewTextDocument({
-                                content: stdout.trim()
-                            });
-                            break;
-                    }
-                }).then(() => {
-                    // If we auto-selected all text, deselect after successful edit
-                    if (autoSelectedAll) {
-                        editor.selectedRanges = [];
-                    }
-                });
+            clearTimeout(timeout);
+            if (failure) {
+                resolve({ error: failure });
+            } else if (status === 0) {
+                resolve({ stdout: stdout });
             } else {
-                nova.workspace.showErrorMessage(`Command failed: ${stderr}`);
+                resolve({ error: stderr });
             }
         });
         
-        process.start();
+        try {
+            process.start();
+        } catch (error) {
+            clearTimeout(timeout);
+            resolve({ error: error.message });
+            return;
+        }
         
         if (process.stdin) {
             let writer = process.stdin.getWriter();
-            writer.write(selectedText);
+            writer.write(input);
             writer.close();
         }
     });

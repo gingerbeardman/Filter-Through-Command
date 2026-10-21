@@ -1,3 +1,9 @@
+## Version 1.3.0
+
+Fix: commands are stopped after 30 seconds or 10 MB of output
+Fix: multiple selections are filtered correctly in a single edit
+Fix: commands are cleaned up when the extension is deactivated
+
 ## Version 1.2.0
 
 Add: if no text is selected filter operates on all text

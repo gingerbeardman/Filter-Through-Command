@@ -7,7 +7,7 @@
     "name": "Filter Through Command",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Filter-Through-Command",
-    "version": "1.2.0",
+    "version": "1.3.0",
 
     "categories": ["commands"],
     "main": "main.js",
